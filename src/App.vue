@@ -1,12 +1,29 @@
 <template>
   <v-app>
-    <v-navigation-drawer permanent app v-model="drawer" color="black">
+    <v-app-bar
+        color="black"
+        dark
+        max-width="256px"
+        absolute
+        style="z-index: 7;"
+    >
+      <v-app-bar-nav-icon @click.stop="menu = !menu"></v-app-bar-nav-icon>
       <v-list-item to="/">
-        <v-list-item-title class="text-h4" style="font-family: NameFont !important;">
+        <v-list-item-title class="text-h4 title">
           yukio sasahara
         </v-list-item-title>
-      </v-list-item>
+      </v-list-item>  
+    </v-app-bar>
+
+    
+    <v-navigation-drawer :mini-variant="menu" permanent app v-model="menu" color="black">
       <v-list nav>
+        <v-list-item>
+          <v-icon color="white" @click.stop="menu = !menu">mdi-menu</v-icon>
+          <v-list-item-title class="text-h4 title">
+            yukio sasahara
+          </v-list-item-title>
+        </v-list-item>
         <v-list-item v-for="menu in menus()" :key="menu" :to="'/'+menu">
           <v-list-item-content>
             <v-list-item-title>{{ menu }}</v-list-item-title>
@@ -38,6 +55,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'App',
   data: () => ({
+    menu: true,
     drawer: false,
     lodeFl: false
   }),
@@ -75,7 +93,7 @@ a:visited{
   color: rgb(255, 255, 255);
 }
 .title {
-  font-size: 30px;
-  font-family: NameFont;
+  text-align: center;
+  font-family: NameFont !important;
 }
 </style>
