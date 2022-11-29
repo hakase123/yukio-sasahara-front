@@ -22,15 +22,13 @@
 
     <v-dialog
       v-model="load"
-      width="137px"
+      width="230px"
       style="overflow-y:visible;box-shadow:aliceblue"
     >
-      <v-progress-circular
-        :size="100"
-        :width="7"
-        color="white"
-        indeterminate
-      ></v-progress-circular>
+      <v-img 
+        class="load"
+        src="@/assets/04658D1E-4CC9-4F49-8B8C-DB128676EED6.png"
+      />
     </v-dialog>
   </div>
 </template>
@@ -113,6 +111,24 @@ export default {
 .image img {
   display: block;
   width: 100%;
+}
+.load {
+  animation: load 2.5s linear 0s 1;
+  animation-iteration-count:infinite;
+}
+
+@keyframes load {
+  0%   { transform: translate(0%, 0%); }
+  5%   { transform: translate(10%, 0%) rotate(10deg); }
+  25%  { transform: translate(20%, 0%) rotate(20deg); }
+  30%  { transform: translate(-10%, 0%) rotate(-10deg); }
+  35%  { transform: translate(-15%, 0%) rotate(-15deg); }
+  45%  { transform: translate(10%, 0%) rotate(10deg); }
+  50%  { transform: translate(15%, 0%) rotate(15deg); }
+  60%  { transform: translate(-5%, 0%) rotate(-5deg); }
+  65%  { transform: translate(-7%, 0%) rotate(-7deg); }
+  75%  { transform: translate(0%, 0%) rotate(0deg); }
+  100% { transform: translate(0%, 0%) rotate(0deg); }
 }
 @media screen and (min-width:768px) {
   .image {

@@ -3,11 +3,8 @@
     <v-app-bar
         color="black"
         dark
-        max-width="256px"
-        absolute
-        style="z-index: 7;"
     >
-      <v-app-bar-nav-icon @click.stop="menu = !menu"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="menuIco" @click="open(menuFl)"></v-app-bar-nav-icon>
       <v-list-item to="/">
         <v-list-item-title class="text-h4 title">
           yukio sasahara
@@ -15,29 +12,23 @@
       </v-list-item>  
     </v-app-bar>
 
-    
-    <v-navigation-drawer :mini-variant="menu" permanent app v-model="menu" color="black">
+
+    <v-navigation-drawer v-if="menuFl" permanent app v-model="menuFl" color="black" class="menu">
       <v-list nav>
         <v-list-item>
-          <v-icon color="white" @click.stop="menu = !menu">mdi-menu</v-icon>
+          <v-icon class="menuIco" color="white" @click="menuFl = !menuFl">mdi-dots-vertical</v-icon>
           <v-list-item-title class="text-h4 title">
             yukio sasahara
           </v-list-item-title>
         </v-list-item>
-        <v-list-item v-for="menu in menus()" :key="menu" :to="'/'+menu">
+        <v-list-item v-for="menu in menus()" :key="menu" :to="'/'+menu" @click="menuFl = !menuFl">
           <v-list-item-content>
             <v-list-item-title>{{ menu }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-twitter</v-icon>
-            <v-icon>mdi-instagram </v-icon>
-          </v-list-item-icon>
-        </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    
 
     <v-content>
       <router-view v-if="lodeFl"/>
@@ -55,11 +46,14 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'App',
   data: () => ({
-    menu: true,
+    menuFl: true,
     drawer: false,
     lodeFl: false
   }),
   mounted:async function(){
+    if(window.innerWidth < 600){
+      this.menuFl = !this.menuFl
+    }
     await this.initialRun()
     this.lodeFl=true
   },
@@ -69,7 +63,12 @@ export default {
     ]),
     ...mapState([
       'menus'
-    ])
+    ]),
+    open(){
+      console.log(this.menu)
+      this.menuFl = !this.menuFl
+      console.log(this.menu)
+    }
   }
 }
 </script>
@@ -91,9 +90,30 @@ a:visited{
 * {
   font-family: Font;
   color: rgb(255, 255, 255);
+  background-color: black;
 }
 .title {
   text-align: center;
   font-family: NameFont !important;
 }
+header{
+  max-width: 256px;   
+  display: none;
+}
+.menuIco{
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  header{
+    max-width: 100%;
+    display:block;
+  }
+	.menu{
+    width: 100% !important;
+  }
+  .menuIco{
+    display: inline-flex;
+  }
+}
+
 </style>
