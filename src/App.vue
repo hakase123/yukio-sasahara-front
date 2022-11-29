@@ -4,7 +4,7 @@
         color="black"
         dark
     >
-      <v-app-bar-nav-icon class="menuIco" @click="open(menuFl)"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="menuIco" @click="menuFl = !menuFl"></v-app-bar-nav-icon>
       <v-list-item to="/">
         <v-list-item-title class="text-h4 title">
           yukio sasahara
@@ -21,7 +21,7 @@
             yukio sasahara
           </v-list-item-title>
         </v-list-item>
-        <v-list-item v-for="menu in menus()" :key="menu" :to="'/'+menu" @click="menuFl = !menuFl">
+        <v-list-item v-for="menu in menus()" :key="menu" :to="'/'+menu" @click="pageTransition()">
           <v-list-item-content>
             <v-list-item-title>{{ menu }}</v-list-item-title>
           </v-list-item-content>
@@ -64,10 +64,9 @@ export default {
     ...mapState([
       'menus'
     ]),
-    open(){
-      console.log(this.menu)
-      this.menuFl = !this.menuFl
-      console.log(this.menu)
+    pageTransition(){
+      if(window.innerWidth < 600)
+        this.menuFl = !this.menuFl
     }
   }
 }
